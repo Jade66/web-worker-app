@@ -11,8 +11,8 @@ async function fetch() {
 async function fetchAndProcessMain() {
   clearOutput();
   showMessage('Working in the main thread. Grab a sandwich...');
-  const docs = fetchAndProcess('Added in main thread');
-  displayDocs(data.docs);
+  const docs = await fetchAndProcess('Added in main thread');
+  displayDocs(docs);
 }
 
 async function fetchAndProcessWithWorker() {
@@ -22,6 +22,7 @@ async function fetchAndProcessWithWorker() {
   worker.onmessage = (e) => {
     displayDocs(e.data);
   };
+  worker.postMessage('Spiffy Message');
 }
 
 export default () => (
