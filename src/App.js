@@ -21,25 +21,27 @@ async function fetchAndProcessWithWorker() {
   const worker = new Worker('fetch-and-process-worker.js');
   worker.onmessage = (e) => {
     displayDocs(e.data);
+    worker.terminate();
   };
   worker.postMessage('Spiffy Message');
 }
 
 export default () => (
   <>
-    <div id='message-div' style={{width:'500px',height:'100px',border:'1px solid black'}}></div>
-    <br/><br/>
+    <h2>Web Worker Demo</h2>
+    <div id='message-div' style={{width:'500px',height:'50px' }}></div>
     <div>
-      <button onClick={randomColor}>Click me!</button><input type='text' placeholder='Type something if you can'></input>
+      <button onClick={randomColor}>Click me!</button>&nbsp;<input type='text' placeholder='Type something if you can'></input>
     </div>
+    <br/><br/>
     <br/>
-    <div id='buttonContainer' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
+    <div id='buttonContainer' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '500px'}}>
       <button id='fetchButton' onClick={fetch} >Fetch</button>
       <button id='fetchButton' onClick={fetchAndProcessMain} >Fetch and process</button>
       <button id='fetchButton' onClick={fetchAndProcessWithWorker} >Fetch and process with worker</button>
     </div>
     <br/>
-    <table id='docs-table'>
+    <table id='docs-table' border='1' cellSpacing='0'>
       <thead>
         <tr>
           <th style={{ width:'100px' }}>ID</th>

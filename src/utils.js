@@ -55,7 +55,7 @@ async function fetchSolrData() {
 
 async function fetchAndProcess(enhancedValue) {
     const data = await fetchSolrData();
-    data.docs.forEach((doc, docIndex) => {
+    data.docs.forEach((doc) => {
         doc.enhancedValue = enhancedValue;
         sleep(500);
     });
